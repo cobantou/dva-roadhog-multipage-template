@@ -1,0 +1,34 @@
+{
+  "entry": "src/pages/*.js",
+  "publicPath": "/res/dist/",
+  "theme" : "./theme.config.js",
+  "multipage":true,
+  "proxy": {
+    "/api": {
+        "target": "http://192.168.2.35/",
+        "changeOrigin": true
+    }
+  },
+  "hash":false,
+  "extraBabelPlugins": [
+      "transform-runtime",
+      ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr"
+        ]
+      },
+    "production": {
+       "extraBabelPlugins": [
+         ["transform-remove-console", { "exclude": [ "error", "warn"] }]
+      ]
+    }
+  },
+   "off-dllPlugin" : {
+      "exclude": ["babel-runtime"],
+      "include": ["dva","react","moment","classnames"]
+    }
+}
+

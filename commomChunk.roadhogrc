@@ -1,0 +1,34 @@
+{
+  "tips":"当页面变多的时候，这种方式能够提取公共模块，首次加载可能慢一点，但加载出来以后，其他页面会非常的快。适合页面多的时候。需要注意删除webpack.config.js里面的headScripts",
+ "multipage": true,
+ "entry": {
+    "index": "./src/index.js",
+    "common": "./src/vendor.js"
+ },
+  "publicPath": "/res/dist/",
+  "theme" : "./theme.config.js",
+  "proxy": {
+    "/api": {
+        "target": "http://192.168.2.67:8080/",
+        "changeOrigin": true
+    }
+  },
+  "hash":true,
+  "extraBabelPlugins": [
+      "transform-runtime",
+      ["import", { "libraryName": "antd", "style": true }]
+  ],
+  "env": {
+    "development": {
+      "extraBabelPlugins": [
+        "dva-hmr"
+        ]
+      },
+    "production": {
+       "extraBabelPlugins": [
+         ["transform-remove-console", { "exclude": [ "error", "warn"] }]
+      ]
+    }
+  }
+}
+
