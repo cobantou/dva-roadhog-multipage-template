@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Collapse, Alert, Button, Tooltip, Icon} from 'antd';
+import {Collapse, Alert, Button, Tooltip, Icon, Popover} from 'antd';
 import styles from './Container.less';
 import MsgTable from './Table'
 
@@ -8,6 +8,7 @@ const {Panel} = Collapse;
 
 
 const Containner = ({
+
                       loading,
                       openedItem,
                       templateDetail,
@@ -16,21 +17,30 @@ const Containner = ({
                       onEditClick,
                     }) => {
 
-  const header = ({title, editType, msgOptionUid}) => {
+  const header = ({help, title, editType, msgOptionUid}) => {
     const handleOnClick = (msgOptionUid) => (e) => {
       e.stopPropagation();
       onAddClick(msgOptionUid);
     }
 
+    const helpText = help && help.replace(/\n/g, "<br/>");
+    const helpDom = <span dangerouslySetInnerHTML={{__html: helpText}}></span>;
+
     return (
       <span>
-       <span className={styles.settingTitle}>配置项：{title} </span>
+        {/*<Popover placement="bottomLeft" title={"帮助"} content={help} trigger="hover" getPopupContainer ={(triggerNode)=>{debugger}}>*/}
+        {/*<span className={styles.settingTitle}>配置项：{title} </span>*/}
+        {/*</Popover>*/}
+        <span className={styles.settingTitle}>配置项：{title} </span>
         {
           editType === 3 ?
             <Button icon="plus" type="primary" className={styles.addBtn}
                     onClick={handleOnClick(msgOptionUid)}>新增</Button>
             : null
         }
+        <Tooltip placement="bottomRight" title={helpDom}>
+          <Icon type="question-circle-o" className={styles.help}/>
+        </Tooltip>
       </span>
 
     )
@@ -55,11 +65,12 @@ const Containner = ({
 
   return (
     <div className={styles.normal}>
-      <Collapse  onChange={handleCollapseChange}>
+      <Collapse>
         {
           templateDetail.map((v) => {
-            return <Panel header={header({title: v.msgOption, editType: v.editType, msgOptionUid: v.msgOptionUid})}
-                          key={v.msgOptionUid}>
+            return <Panel
+              header={header({title: v.msgOption, editType: v.editType, msgOptionUid: v.msgOptionUid, help: v.help})}
+              key={v.msgOptionUid}>
               <MsgTable
                 editType={v.editType}
                 data={v.items}
@@ -70,12 +81,12 @@ const Containner = ({
         }
       </Collapse>
 
-      <Alert
-        className={styles.alert}
-        message="帮助"
-        description={help}
-        type="info"
-      />
+      {/*<Alert*/}
+      {/*className={styles.alert}*/}
+      {/*message="帮助"*/}
+      {/*description={help}*/}
+      {/*type="info"*/}
+      {/*/>*/}
     </div>
   );
 }

@@ -2,7 +2,8 @@ import  dva from 'dva';
 import {message} from 'antd'
 import createLoading from 'dva-loading'
 import {Router} from 'dva/router'
-// import './index.less';
+// import '../pages/msgTplSetting.html';
+import 'babel-polyfill'
 
 // 1. Initialize
 const app = dva({

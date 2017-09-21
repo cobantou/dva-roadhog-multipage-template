@@ -1,6 +1,6 @@
 {
-  "entry": "src/pages/*.js",
-  "publicPath": "/res/dist/",
+  "entry": "./src/pages/*.js",
+  "publicPath": "/res/pigeon/",
   "theme" : "./theme.config.js",
   "multipage":true,
   "proxy": {
@@ -9,7 +9,7 @@
         "changeOrigin": true
     }
   },
-  "hash":false,
+  "hash":true,
   "extraBabelPlugins": [
       "transform-runtime",
       ["import", { "libraryName": "antd", "style": true }]

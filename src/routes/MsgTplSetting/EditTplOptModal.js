@@ -64,6 +64,7 @@ const modal = ({
         <FormItem label="是否显示" hasFeedback {...formItemLayout}>
           {getFieldDecorator('checked', {
             initialValue: currentOption.checked,
+            valuePropName: 'checked',
             rules: [
               {
                 required: true,
@@ -90,7 +91,7 @@ const modal = ({
           editType !== 1
             ? <FormItem label="设置SQL" hasFeedback {...formItemLayout}>
             {getFieldDecorator('getSql', {
-              initialValue: editType,
+              initialValue: currentOption.getSql,
               rules: [
                 {
                   required: true,

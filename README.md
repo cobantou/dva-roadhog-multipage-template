@@ -6,9 +6,6 @@ npm i dva-cli -g
 ```
 # 启动
 ```
-//启动前可能需要运行一次
-npm run build:dll
-//然后启动
 npm run start
 ```
 # 发布
